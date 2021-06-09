@@ -4,7 +4,7 @@
 node{
   def mavenHome = tool name: 'maven3.8.1'
   stage('CodeClone') {
-    git credentialsId: 'git-credentials', url: 'https://github.com/mylandmarktechs/web'
+    git credentialsId: 'git-credentials', url: 'https://github.com/Ajulutek/maven-web-apps'
   }
   stage('mavenBuild') {
     sh "${mavenHome}/bin/mvn clean package"
@@ -17,7 +17,7 @@ node{
   stage('emailQualityIssues') {
     emailext body: '''Thanks
 
-Landmark Technologies''', recipientProviders: [developers()], subject: 'status of build', to: 'mylandmarktech@gmail.com'
+Landmark Technologies''', recipientProviders: [developers()], subject: 'status of build', to: 'gbemudurichard@gmail.com'
   }
 
    stage('UploadNexus') {
@@ -26,12 +26,12 @@ Landmark Technologies''', recipientProviders: [developers()], subject: 'status o
   }
 
   stage('DeployTomcat') {
-    deploy adapters: [tomcat9(credentialsId: 'tomcat', path: '', url: 'http://34.239.155.145:7000/')], contextPath: null, war: 'target/*war'
+    deploy adapters: [tomcat9(credentialsId: 'tomcat', path: '', url: 'http://18.116.70.196:7000/')], contextPath: null, war: 'target/*war'
   }
   stage('emailDeployIssues') {
     emailext body: '''Thanks
 
-Landmark Technologies''', recipientProviders: [developers()], subject: 'status of build', to: 'mylandmarktech@gmail.com'
+Landmark Technologies''', recipientProviders: [developers()], subject: 'status of build', to: 'gbemudurichard@gmail.com'
   }
  */ 
 }
